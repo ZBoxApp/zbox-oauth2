@@ -1,0 +1,187 @@
+@import "http://fonts.googleapis.com/css?family=Lato:300,400,700,900";
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700";
+@import "../plugins/bootstrap/dist/css/bootstrap.min.css";
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    background: #F5F5F5;
+    color: #5B5B5B;
+    font-family: 'Lato', 'Open Sans', Helvetica, sans-serif !important;
+    line-height: 1.42857143;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+input {
+    color: #636e7b;
+    font-family: 'Lato', 'Open Sans', Helvetica, sans-serif !important;
+}
+a {
+    color: #319DB5;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+a:focus,
+a:active {
+    outline: none;
+}
+.append-icon {
+    position: relative;
+}
+.append-icon input {
+    padding-right: 36px;
+}
+.append-icon i {
+    color: #1b1e25;
+    color: rgba(27, 30, 37, 0.3);
+    font-size: 14px;
+    height: 34px;
+    left: auto;
+    line-height: 34px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 36px;
+}
+
+.m-b-20 {
+    margin-bottom: 20px !important;
+}
+
+.account {
+    background: #1f3649;
+    background: -moz-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #1f3649), color-stop(44%, #17253d), color-stop(100%, #040d11));
+    background: -webkit-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
+    background: -o-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
+    background: -ms-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
+    background: radial-gradient(ellipse at center, #1f3649 0%, #17253d 44%, #040d11 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@account-color-dark', endColorstr='#040d11', GradientType=1);
+}
+.account a {
+    color: #D1D1D1;
+    font-size: 14px;
+}
+.account a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+.account .backstretch:before {
+    background-color: rgba(15, 15, 15, 0.6);
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.account .form-signin {
+    margin: 0 auto;
+    max-width: 330px;
+}
+.account .form-signin .form-control:focus {
+    z-index: 2;
+}
+.account .form-signin input[type="text"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+}
+.account .form-signin input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-bottom: 10px;
+}
+.account .account-wall {
+    margin-top: 160px;
+    padding: 20px 20px 10px;
+    position: relative;
+}
+.account .logo-img {
+    color: #ffffff;
+    display: block;
+    font-size: 75px;
+    left: 0;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: -80px;
+    height:80px;
+    background: #ffffff url(/images/logo.png) no-repeat center;
+}
+.account .btn.btn-lg {
+    font-size: 15px;
+    padding: 8px 48px 6px;
+}
+.account .btn.btn-lg.btn-primary {
+    background-color: #3f5872;
+}
+.account .form-signup {
+    margin: 0 auto;
+    max-width: none;
+}
+.account .form-signup .form-control:focus {
+    z-index: 2;
+}
+.account .form-signup input[type="text"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+}
+.account .form-signup input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-bottom: 10px;
+}
+.account .form-signup #submit-form {
+    display: block;
+    margin: auto;
+}
+.account.separate-inputs .form-signin input[type="text"] {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    margin-bottom: 8px;
+}
+.account.separate-inputs .form-signin input[type="password"] {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+.account.separate-inputs .form-signup input[type="text"] {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    margin-bottom: 8px;
+}
+.account.separate-inputs .form-signup input[type="email"] {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    margin-bottom: 8px;
+}
+.account.separate-inputs .form-signup input[type="password"] {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+.account.boxed .account-wall {
+    background-color: #ffffff;
+    opacity: 1;
+}
+.account.boxed a {
+    color: #838383;
+}
+.account.boxed a:hover {
+    color: #4D4D4D;
+}
+.account-copyright {
+    bottom: 10px;
+    color: #BDBDBD;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+}

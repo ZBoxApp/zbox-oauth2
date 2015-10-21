@@ -1,0 +1,16 @@
+{
+  "httpPort": 3000,
+  "httpsPort": 4430,
+  "enableSSL": false,
+  "security": {
+    "tokenLife": 3600,
+    "codeLife": 300
+  },
+  "mongoose": {
+    "uri": "mongodb://192.168.99.100/zboxAuth",
+    "expires": 2592000
+  },
+  "zimbra" : {
+    "preauth_host": "http://192.168.99.100:9292"
+  }
+}

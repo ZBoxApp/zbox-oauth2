@@ -1,0 +1,49 @@
+{
+  "name": "ZBoxAuth",
+  "version": "0.1.0",
+  "description": "Mecanismo de autenticación para ZBox",
+  "private": true,
+  "scripts": {
+    "prestart": "bower --allow-root install && npm install && gulp",
+    "start": "forever --minUptime 1000 --spinSleepTime 1000 ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "express-session": "^1.11.3",
+    "hbs": "^3.1.1",
+    "moment": "^2.10.6",
+    "mongoose": "^4.1.11",
+    "morgan": "~1.6.1",
+    "nconf": "^0.8.2",
+    "node-watch": "^0.3.4",
+    "oauth2orize": "^1.0.1",
+    "passport": "^0.3.0",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "passport-oauth2-client-password": "^0.1.2",
+    "q": "^1.4.1",
+    "request": "^2.65.0",
+    "serve-favicon": "~2.3.0",
+    "winston": "^1.1.0"
+  },
+  "devDependencies": {
+    "bower-resolve": "^2.2.1",
+    "browserify": "^11.2.0",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-if": "^2.0.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-uglify": "^1.4.2",
+    "lodash": "^3.10.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

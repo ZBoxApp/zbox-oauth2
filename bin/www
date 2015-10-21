@@ -1,0 +1,131 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var server = require('../server'),
+    log = require('../libs/log')(module),
+    config = require('../libs/config'),
+    http = require('http'),
+    https = require('https'),
+    fs = require('fs'),
+    httpPort = normalizePort(process.env.PORT || config.get("httpPort") || '3000'),
+    httpsPort = config.get("httpsPort"),
+    httpServer, httpsServer, sslCert, sslKey;
+
+/**
+ * Create HTTP server & Listen on provided port, on all network interfaces..
+ */
+
+server.set('port', httpPort);
+httpServer = http.createServer(server);
+httpServer.listen(httpPort);
+httpServer.on('error', onError);
+httpServer.on('listening', onListening);
+
+/**
+ * Create HTTPS server & Listen on provided port, on all network interfaces..
+ */
+
+if(config.get('enableSSL')) {
+  app.set('port', httpsPort);
+  sslKey = fs.readFileSync('certs/key.pem');
+  sslCert = fs.readFileSync('certs/cert.pem');
+  httpsServer = https.createServer({key: sslKey, cert: sslCert}, server);
+  httpServer.listen(httpsPort);
+  httpServer.on('error', onErrorSSL);
+  httpServer.on('listening', onListeningSSL);
+}
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof httpPort === 'string'
+    ? 'Pipe ' + httpPort
+    : 'Port ' + httpPort;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      log.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      log.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+function onErrorSSL(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof httpsPort === 'string'
+      ? 'Pipe ' + httpsPort
+      : 'Port ' + httpsPort;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      log.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      log.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP & HTTPS server "listening" event.
+ */
+
+function onListening() {
+  var addr = httpServer.address();
+  var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+  log.info('ZBox OAuth 2.0 Server listening on ' + bind);
+}
+
+function onListeningSSL() {
+  var addr = httpsServer.address();
+  var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+  log.info('ZBox OAuth 2.0 Server listening on ' + bind);
+}

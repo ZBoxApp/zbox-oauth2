@@ -1,0 +1,27 @@
+{
+  "name": "ZBoxAuth",
+  "description": "Mecanismo de autenticación para ZBox",
+  "main": "",
+  "authors": [
+    "Elias Nahum <elias@zboxapp.com>"
+  ],
+  "homepage": "http://www.zboxapp.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/plugins",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery-backstretch": "~2.0.4",
+    "jquery": "~2.1.4",
+    "jquery-validation": "~1.14.0"
+  },
+  "resolutions": {
+    "jquery": "~2.1.4"
+  }
+}
