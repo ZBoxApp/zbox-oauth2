@@ -8,7 +8,9 @@ var passport = require('passport'),
     BasicStrategy = require('passport-http').BasicStrategy,
     ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
+    ZimbraStrategy = require('passport-zimbra').Strategy,
     zimbra = require('./zimbraPreauth'),
+    config = require('./config'),
     db = require('../models');
 
 
@@ -50,6 +52,27 @@ passport.use(new LocalStrategy(
                     return done(null, false, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
                     break;
             }
+        });
+    }
+));
+
+passport.use(new ZimbraStrategy({
+    url: process.env.ZIMBRA_TOKEN_URL || config.get("zimbra:token")}, function(email, done) {
+        var params = {
+            email: email
+        };
+        zimbra.post('/url', params, function(err, response, body) {
+            if(err) {
+                return done(err);
+            }
+            if(response.statusCode !== 200) {
+                return done(null, false, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
+            }
+            return db.models.User.updateOrCreate(JSON.parse(body), function(err, user) {
+                if(err) return done(err);
+
+                return done(null, user);
+            });
         });
     }
 ));

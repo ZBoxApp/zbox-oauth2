@@ -8,7 +8,9 @@ var schema = new mongoose.Schema({
     firstname: { type: String },
     lastname: { type: String },
     team: { type: String },
-    zimbraUrl: { type: String }
+    zimbraUrl: { type: String },
+    chatEnabled: { type: Boolean, default: true },
+    isEnabled: { type: Boolean, default: true }
 });
 
 schema.statics.get = function(id, done) {
@@ -39,6 +41,7 @@ schema.statics.updateOrCreate = function(data, done) {
             user.lastname = data.last_name;
             user.team = data.default_team;
             user.zimbraUrl = data.mail_login_url;
+            user.chatEnabled = data.chat_enabled ? data.chat_enabled === 'TRUE' : true;
 
             return user.save();
         })

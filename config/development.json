@@ -11,6 +11,7 @@
     "expires": 2592000
   },
   "zimbra" : {
-    "preauth_host": "http://dockerhost:9292"
+    "preauth_host": "http://dockerhost:9292",
+    "token": "https://localhost:7443/service/soap/AuthRequest"
   }
 }
