@@ -51,6 +51,7 @@ Por ejemplo puedes correr con Docker ejecutando:
 $ docker run --name zboxOAuth2 --publish 80:80 \
   -e MONGO_URL=mongodb://user:pwd@localhost/zboxOAuth \
   -e ZIMBRA_PREAUTH_HOST=http://192.168.99.100:9292 \
+  -e ZIMBRA_TOKEN_URL=https://localhost:7443/service/soap/AuthRequest \
   enahum/zbox-oauth2
 ```
 

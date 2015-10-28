@@ -8,11 +8,11 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 # Install Dependancies
-RUN apt-get update && apt-get install -y build-essential python curl nano
+RUN apt-get update && apt-get install -y build-essential python curl nano git
 
 # Install NodeJS
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 4.1.2
+ENV NODE_VERSION 4.2.1
 ENV PORT 80
 ENV NODE_ENV production
 

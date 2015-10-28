@@ -27,7 +27,7 @@
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "passport-oauth2-client-password": "^0.1.2",
-    "passport-zimbra": "git+ssh://git@github.com/ZBoxApp/passport-zimbra.git",
+    "passport-zimbra": "git+https://git@github.com/ZBoxApp/passport-zimbra.git",
     "q": "^1.4.1",
     "request": "^2.65.0",
     "serve-favicon": "~2.3.0",
