@@ -13,5 +13,6 @@ $(document).ready(function() {
                 fade: 600,
                 duration: 4000
             });
+        $('#username').focus();
     }
 });

@@ -1,6 +1,6 @@
-<p>Hi {{ user.fullname }}!</p>
-<p><b>{{ client.name }}</b> is requesting access to your account.</p>
-<p>Do you approve?</p>
+<p>Hola {{ user.fullname }}!</p>
+<p><b>{{ client.name }}</b> está solicitando acceso a tu cuenta.</p>
+<p>¿Apruebas la solicitud de acceso?</p>
 
 <form action="/oauth/authorize/decision" method="post">
     <input name="transaction_id" type="hidden" value="{{ transactionID }}">
