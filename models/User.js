@@ -41,7 +41,7 @@ schema.statics.updateOrCreate = function(data, done) {
             user.lastname = data.last_name;
             user.team = data.default_team;
             user.zimbraUrl = data.mail_login_url;
-            user.chatEnabled = data.chat_enabled ? data.chat_enabled === 'TRUE' : true;
+            user.chatEnabled = data.chat_enabled ? data.chat_enabled === true : true;
 
             return user.save();
         })
