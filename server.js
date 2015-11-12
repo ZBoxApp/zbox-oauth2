@@ -13,6 +13,7 @@ var express = require('express'),
     routes = require('./routes'),
     oauth = require('./routes/oauth'),
     users = require('./routes/users'),
+    version = require('./routes/version');
     app = express();
 
 app.use(logger('dev'));
@@ -43,6 +44,7 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 app.use('/', routes);
 app.use('/', users);
+app.use('/', version);
 app.use('/oauth', oauth);
 
 // error handlers

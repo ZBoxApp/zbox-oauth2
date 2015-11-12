@@ -4,28 +4,28 @@
 var db = require('./models');
 
 db.models.Client.remove({}).exec();
-db.models.User.remove({}).exec();
+db.models.ServiceVersion.remove({}).exec();
 
 var cl = new db.models.Client({
-    name: 'zbox test',
-    clientId: 'abc123',
-    clientSecret: 'zboxSecret'
+    name: 'ZBox Chat',
+    clientId: 'YKk-3wF-UDb-3As',
+    clientSecret: 'RZqS6sS4Wv3X7Sex',
+    isTrusted: true
 });
 
 cl.save(function(err, client) {
     console.log(client);
 });
 
-var u = new db.models.User({
-    email: 'elias@zboxapp.com',
-    password: 'zboxadmin',
-    firstname: 'Elias',
-    lastname: 'Nahum',
-    team: 'zbox'
+var chat = new db.models.ServiceVersion({
+    name: 'chatDesktop',
+    min: '1.0.1',
+    current: '1.0.1',
+    link: 'http://www.zboxapp.com/chat'
 });
 
-u.save(function(err, user){
-   console.log(user);
+chat.save(function(err, service) {
+   console.log(service);
 });
 
 setTimeout(function () {

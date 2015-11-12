@@ -5,20 +5,25 @@ var express = require('express'),
     zimbra = require('../libs/zimbraPreauth');
 
 /* GET home page. */
-router.get('/', login.ensureLoggedIn(), function(req, res, next) {
-    var params = {
-        email: req.user.email
-    };
-    zimbra.post('/url', params, function(err, response, body) {
-        if(err) {
-            return next(err);
-        }
-        if(response.statusCode !== 200) {
-            return next({ message: response.statusMessage});
-        }
-        return res.redirect(JSON.parse(body).mail_login_url);
+router.route('/')
+    .head(function(req, res){
+        res.status(200);
+        return res.end();
+    })
+    .get(login.ensureLoggedIn(), function(req, res, next) {
+        var params = {
+            email: req.user.email
+        };
+        zimbra.post('/url', params, function(err, response, body) {
+            if(err) {
+                return next(err);
+            }
+            if(response.statusCode !== 200) {
+                return next({ message: response.statusMessage});
+            }
+            return res.redirect(JSON.parse(body).mail_login_url);
+        });
     });
-});
 
 router.route('/login')
     .get(function(req, res, next) {

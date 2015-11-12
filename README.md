@@ -15,7 +15,8 @@ la siguiente información:
 * `firstname`, nombre del usuario
 * `lastname`, apellido del usuario
 * `zimbraUrl`, URL para ingresar directamente al Webmail la primera vez
-* `team`, nombre del equipo de chat del usuario
+* `chatEnabled`, identifica si el usuario tiene acceso al chat
+* `isEnabled`, identifica si el usuario está activo
 
 
 Por ejemplo:
@@ -34,6 +35,8 @@ responde con
   "lastname": "Nahum",
   "firstname": "Elias",
   "email": "elias@zboxapp.dev",
+  "chatEnabled": true,
+  "isEnabled": true,
   "__v": 0
 }
 ```
