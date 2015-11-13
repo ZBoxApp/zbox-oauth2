@@ -30,10 +30,10 @@ gulp.task('minify', function() {
         .pipe(gulp.dest('./public/css/'));
 
     var b = browserify(['./public/javascripts/app.js'], {debug: true} );
-    getBowerPackageIds().forEach(function(id) {
-        var resolvedPath = bower.fastReadSync(id);
-        b.require(resolvedPath, { expose: id });
-    });
+    //getBowerPackageIds().forEach(function(id) {
+    //    var resolvedPath = bower.fastReadSync(id);
+    //    b.require(resolvedPath, { expose: id });
+    //});
 
     return b.bundle()
     .pipe(source('bundle.js'))
