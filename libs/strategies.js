@@ -31,7 +31,7 @@ passport.deserializeUser(function(id, done) {
  * Anytime a request is made to authorize an application, we must ensure that
  * a user is logged in before asking them to approve the request.
  */
-passport.use(new LocalStrategy(
+passport.use('preauth', new LocalStrategy(
     function(username, password, done) {
         var params = {
             email: username,
@@ -45,19 +45,59 @@ passport.use(new LocalStrategy(
             switch(response.statusCode) {
                 case 200:
                     return db.models.User.updateOrCreate(JSON.parse(body), function(err, user) {
-                        return done(null, user);
+                        if(user.isEnabled) {
+                            return done(null, user);
+                        } else {
+                            return done(null, null, {message: 'El usuario ha sido inhabilitado'});
+                        }
                     });
                     break;
                 case 401:
-                    return done(null, false, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
+                    return done(null, null, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
                     break;
             }
         });
     }
 ));
 
+passport.use('local', new LocalStrategy(
+    function(username, password, done) {
+        var er = { status: 401, code: 'Autorizacion', message: 'Nombre de usuario y/o contraseña incorrecta.' };
+        // check in mongo if a user with username exists or not
+        User.findOne({ 'email' :  username })
+            .exec(function(err, user) {
+                // In case of any error, return using the done method
+                if (err) {
+                    er.status = 500;
+                    er.code = 'MongoDB';
+                    er.message = err.message;
+                    return done(er);
+                }
+
+                // Username does not exist, log error & redirect back
+                if (!user) {
+                    return done(null, null, {message: er.message });
+                }
+
+                // User exists but wrong password, log the error
+                if (!user.checkPassword(password)) {
+                    return done(null, false, {message: er.message });
+                }
+
+                if(!user.isEnabled) {
+                    return done(null, false, {message: 'El usuario ha sido inhabilitado'});
+                }
+
+                // User and password both match, return user from
+                // done method which will be treated like success
+                return done(null, user);
+            }
+        );
+    }));
+
 passport.use(new ZimbraStrategy({
-    url: process.env.ZIMBRA_TOKEN_URL || config.get("zimbra:token")}, function(email, done) {
+    url: process.env.ZIMBRA_TOKEN_URL || config.get("zimbra:token")},
+    function(email, done) {
         var params = {
             email: email
         };

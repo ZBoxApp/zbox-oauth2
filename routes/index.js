@@ -4,6 +4,8 @@ var express = require('express'),
     login = require('connect-ensure-login'),
     zimbra = require('../libs/zimbraPreauth');
 
+
+var path = require('path');
 /* GET home page. */
 router.route('/')
     .head(function(req, res){
@@ -11,18 +13,23 @@ router.route('/')
         return res.end();
     })
     .get(login.ensureLoggedIn(), function(req, res, next) {
+        var user = req.user;
         var params = {
-            email: req.user.email
+            email: user.email
         };
-        zimbra.post('/url', params, function(err, response, body) {
-            if(err) {
-                return next(err);
-            }
-            if(response.statusCode !== 200) {
-                return next({ message: response.statusMessage});
-            }
-            return res.redirect(JSON.parse(body).mail_login_url);
-        });
+        if(user.isZimbra) {
+            zimbra.post('/url', params, function (err, response, body) {
+                if (err) {
+                    return next(err);
+                }
+                if (response.statusCode !== 200) {
+                    return next({message: response.statusMessage});
+                }
+                return res.redirect(JSON.parse(body).mail_login_url);
+            });
+        } else {
+            res.redirect(user.zimbraUrl);
+        }
     });
 
 router.route('/login')
@@ -34,16 +41,18 @@ router.route('/login')
         });
     })
     .post(function(req, res, next) {
-        passport.authenticate('local', { failureFlash: true }, function(err, user, info) {
+        passport.authenticate(['local', 'preauth'], { failureFlash: true }, function(err, user, info) {
             if(err) {
                 return next(err);
             }
             if(!user) {
-                req.flash('error', info.message);
+                var msg = user === null ? info[0].message : info[1].message;
+                req.flash('error', msg);
                 return res.redirect('/login');
             }
             req.logIn(user, function(err) {
                 var url = req.session ? req.session.returnTo || req.user.zimbraUrl : req.user.zimbraUrl || '/';
+
                 if(err) {
                     return next(err);
                 }
