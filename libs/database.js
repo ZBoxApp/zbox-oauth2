@@ -99,7 +99,7 @@ var mongodb = {
             message: message
         };
         if(res) {
-            res.status(400);
+            res.status(500);
             return res.json(error);
         }
         else

@@ -1,26 +1,23 @@
 var express = require('express'),
     router = express.Router(),
-    passport = require('passport');
+    passport = require('passport'),
+    controller = require('../controllers/users');
 
 /* GET users listing. */
 router.route("/me")
-    .get(passport.authenticate('bearer', { session: false }), function(req, res) {
-        res.json(req.user);
-    })
-    .post(passport.authenticate('zimbra', { session: false }), function(req, res) {
-        // req.authInfo is set using the `info` argument supplied by
-        // `BearerStrategy`.  It is typically used to indicate scope of the token,
-        // and used in access control checks.  For illustrative purposes, this
-        // example simply returns the scope in the response.
-        res.json(req.user);
-    });
+    .get(passport.authenticate('bearer', { session: false }), controller.me)
+    .post(passport.authenticate('zimbra', { session: false }), controller.me);
 
-router.get('/client', passport.authenticate('bearer', { session: false }), function(req, res) {
-    // req.authInfo is set using the `info` argument supplied by
-    // `BearerStrategy`.  It is typically used to indicate scope of the token,
-    // and used in access control checks.  For illustrative purposes, this
-    // example simply returns the scope in the response.
-    res.json({ client_id: req.user.id, name: req.user.name, scope: req.authInfo.scope })
-});
+router.get('/client', passport.authenticate('bearer', { session: false }), controller.client);
+
+router.get('/users/:id', passport.authenticate('bearer', { session: false }), controller.findById);
+
+router.get('/users/team/:team', passport.authenticate('bearer', { session: false }), controller.findByTeam);
+
+router.post('/users/create', passport.authenticate('bearer', { session: false }), controller.create);
+
+router.patch('/users/update', passport.authenticate('bearer', { session: false }), controller.update);
+
+router.delete('/users/:id', passport.authenticate('bearer', { session: false }), controller.remove);
 
 module.exports = router;

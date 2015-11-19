@@ -3,7 +3,7 @@
  */
 var express = require('express'),
     router = express.Router(),
-    oauth2 = require('../libs/oauth2');
+    oauth2 = require('../controllers/oauth');
 
 router.get('/authorize', oauth2.authorization);
 router.post('/authorize/decision', oauth2.decision);

@@ -33,9 +33,9 @@ if(config.get('enableSSL')) {
   sslKey = fs.readFileSync('certs/key.pem');
   sslCert = fs.readFileSync('certs/cert.pem');
   httpsServer = https.createServer({key: sslKey, cert: sslCert}, server);
-  httpServer.listen(httpsPort);
-  httpServer.on('error', onErrorSSL);
-  httpServer.on('listening', onListeningSSL);
+  httpsServer.listen(httpsPort);
+  httpsServer.on('error', onErrorSSL);
+  httpsServer.on('listening', onListeningSSL);
 }
 
 /**

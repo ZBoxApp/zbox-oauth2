@@ -1,7 +1,7 @@
 {
   "httpPort": 3000,
   "httpsPort": 4430,
-  "enableSSL": false,
+  "enableSSL": true,
   "security": {
     "tokenLife": 3600,
     "codeLife": 300
@@ -13,5 +13,8 @@
   "zimbra" : {
     "preauth_host": "http://dockerhost:9292",
     "token": "https://localhost:7443/service/soap/AuthRequest"
+  },
+  "chat": {
+    "url": "http://localhost:8065"
   }
 }

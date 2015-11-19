@@ -28,6 +28,17 @@ schema.statics.get = function(id, done) {
     });
 };
 
+schema.statics.findByTeam = function(team, done) {
+    User.find({team: team})
+        .select('_id team firstname lastname email isEnabled chatEnabled role isZimbra')
+        .then(function(users) {
+            return done(null, users);
+        })
+        .catch(function(error) {
+            return done(error, null);
+        });
+};
+
 schema.statics.findByEmail = function(email, done) {
     User.findOne({ email: email }, function(err, user) {
         if(err) { return done(err, null); }
