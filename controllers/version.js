@@ -43,6 +43,21 @@ controller.get = function(req, res) {
     });
 };
 
+controller.releases = function(req, res) {
+    var filename,
+        app = req.params.name,
+        platform = req.params.platform;
+
+    filename = path.join(__dirname, '../releases', app, platform, 'RELEASES');
+    fs.access(filename, fs.R_OK, function(err) {
+        if(err) {
+            return res.status(204).end();
+        }
+
+        return res.download(filename, 'RELEASES');
+    });
+};
+
 controller.create = function(req, res) {
     var app = req.body;
     db.models.ServiceVersion.findByName(app.name, function(err, service) {
@@ -112,8 +127,19 @@ controller.remove = function(req, res) {
 };
 
 controller.download = function(req, res) {
-    var file = req.params.file,
-        filename = path.join(__dirname, '../files', file);
+    var filename,
+        file = req.params.file,
+        app = req.params.name,
+        platform = req.params.platform;
+
+
+    if(!app) {
+        filename = path.join(__dirname, '../releases', file);
+    } else {
+        filename = path.join(__dirname, '../releases', app, platform, file);
+    }
+
+
     fs.access(filename, fs.R_OK, function(err) {
         if(err) {
             return errorRequestHandler(404, "Not Found", "The file you're trying to download doesn't exists.", res);

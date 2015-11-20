@@ -12,7 +12,7 @@ var server = require('../server'),
     fs = require('fs'),
     httpPort = normalizePort(process.env.PORT || config.get("httpPort") || '3000'),
     httpsPort = config.get("httpsPort"),
-    httpServer, httpsServer, sslCert, sslKey;
+    httpServer, httpsServer, sslCert, sslKey, sslCa;
 
 /**
  * Create HTTP server & Listen on provided port, on all network interfaces..
@@ -29,13 +29,14 @@ httpServer.on('listening', onListening);
  */
 
 if(config.get('enableSSL')) {
-  app.set('port', httpsPort);
-  sslKey = fs.readFileSync('certs/key.pem');
-  sslCert = fs.readFileSync('certs/cert.pem');
-  httpsServer = https.createServer({key: sslKey, cert: sslCert}, server);
-  httpsServer.listen(httpsPort);
-  httpsServer.on('error', onErrorSSL);
-  httpsServer.on('listening', onListeningSSL);
+    app.set('port', httpsPort);
+    sslKey = fs.readFileSync('certs/commercial.key');
+    sslCert = fs.readFileSync('certs/cert.pem');
+    sslCa = fs.readFileSync('certs/ca-bundle.crt');
+    httpsServer = https.createServer({key: sslKey, cert: sslCert}, server);
+    httpsServer.listen(httpsPort);
+    httpsServer.on('error', onErrorSSL);
+    httpsServer.on('listening', onListeningSSL);
 }
 
 /**

@@ -10,8 +10,10 @@ var express = require('express'),
 router.head('/status', controller.head);
 
 router.get('/version/:name/:number/:platform', controller.get);
+router.get('/version/:name/:number/:platform/releases', controller.releases);
 
 router.get('/download/:file', controller.download);
+router.get('/version/:name/:number/:platform/:file', controller.download);
 
 router.post('/version/create', passport.authenticate('bearer', { session: false }), controller.create);
 
