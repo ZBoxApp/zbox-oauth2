@@ -44,17 +44,23 @@ controller.get = function(req, res) {
 };
 
 controller.releases = function(req, res) {
-    var filename,
-        app = req.params.name,
-        platform = req.params.platform;
+    var app = req.params.name,
+        platform = req.params.platform,
+        url = null;
 
-    filename = path.join(__dirname, '../releases', app, platform, 'RELEASES');
-    fs.access(filename, fs.R_OK, function(err) {
+    db.models.ServiceVersion.findByName(app, function(err, version) {
         if(err) {
-            return res.status(204).end();
+            return db.errorHandler(err, res);
+        } else if(!version) {
+            return errorRequestHandler(404, "Not Found", "The service you're trying to check doesn't exists.", res);
         }
 
-        return res.download(filename, 'RELEASES');
+        url = version.findPlatformUrl(platform);
+        if(url) {
+            return res.redirect(url + 'RELEASES');
+        }
+
+        return errorRequestHandler(204, "No Content", "There isn't an update available for your platform", res);
     });
 };
 
@@ -130,23 +136,34 @@ controller.download = function(req, res) {
     var filename,
         file = req.params.file,
         app = req.params.name,
-        platform = req.params.platform;
-
+        platform = req.params.platform,
+        url = null;
 
     if(!app) {
         filename = path.join(__dirname, '../releases', file);
+        fs.access(filename, fs.R_OK, function(err) {
+            if(err) {
+                return errorRequestHandler(404, "Not Found", "The file you're trying to download doesn't exists.", res);
+            }
+
+            return res.download(filename, file);
+        });
     } else {
-        filename = path.join(__dirname, '../releases', app, platform, file);
+        db.models.ServiceVersion.findByName(app, function(err, version) {
+            if(err) {
+                return db.errorHandler(err, res);
+            } else if(!version) {
+                return errorRequestHandler(404, "Not Found", "The service you're trying to check doesn't exists.", res);
+            }
+
+            url = version.findPlatformUrl(platform);
+            if(url) {
+                return res.redirect(url + file);
+            }
+
+            return errorRequestHandler(204, "No Content", "There isn't an update available for your platform", res);
+        });
     }
-
-
-    fs.access(filename, fs.R_OK, function(err) {
-        if(err) {
-            return errorRequestHandler(404, "Not Found", "The file you're trying to download doesn't exists.", res);
-        }
-
-        return res.download(filename, file);
-    });
 };
 
 module.exports = controller;
