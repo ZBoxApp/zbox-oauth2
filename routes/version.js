@@ -15,6 +15,10 @@ router.get('/version/:name/:number/:platform/releases', controller.releases);
 router.get('/download/:file', controller.download);
 router.get('/version/:name/:number/:platform/:file', controller.download);
 
+router.get('/version', passport.authenticate('bearer', { session: false }), controller.getAll);
+
+router.get('/version/:name', passport.authenticate('bearer', { session: false }), controller.findOne);
+
 router.post('/version/create', passport.authenticate('bearer', { session: false }), controller.create);
 
 router.patch('/version/update', passport.authenticate('bearer', { session: false }), controller.update);

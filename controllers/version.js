@@ -43,6 +43,31 @@ controller.get = function(req, res) {
     });
 };
 
+controller.getAll = function(req, res) {
+    db.models.ServiceVersion.find({}, function(err, versions) {
+        if(err) {
+            return db.errorHandler(err, res);
+        }
+
+        res.status(200);
+        return res.json(versions);
+    });
+};
+
+controller.findOne = function(req, res) {
+    var name = req.params.name;
+
+    db.models.ServiceVersion.findByName(name, function(err, version) {
+        if(err) {
+            return db.errorHandler(err, res);
+        } else if(!version) {
+            return errorRequestHandler(404, "Not Found", "The service you're trying to check doesn't exists.", res);
+        }
+
+        return res.status(200).json(version);
+    });
+};
+
 controller.releases = function(req, res) {
     var app = req.params.name,
         platform = req.params.platform,

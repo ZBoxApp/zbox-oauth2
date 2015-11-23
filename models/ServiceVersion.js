@@ -10,7 +10,7 @@ var schema = new mongoose.Schema({
     pub_date: { type: Date, default: Date.now },
     link: [
         {
-            platform: { type: String, trim: true, required: true, enum: ['darwin', 'win32-ia32', 'win32-x64'] },
+            platform: { type: String, trim: true, required: true, enum: ['darwin-x64', 'win32-ia32', 'win32-x64'] },
             url: { type: String, trim: true, unique: true, lowercase: true, require:true, match: /^(ftp|http|https):\/\/[^ "]+$/ }
         }
     ]
