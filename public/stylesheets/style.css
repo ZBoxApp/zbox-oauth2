@@ -185,3 +185,9 @@ a:active {
     right: 0;
     text-align: center;
 }
+
+div.has-error {
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: #D44950;
+}

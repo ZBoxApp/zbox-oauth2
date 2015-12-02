@@ -34,12 +34,13 @@ controller.login = function(req, res, next) {
     return res.render('login', {
         title: 'Autenticación ZBox',
         page: 'login',
-        message: req.flash('error')
+        message: req.flash('error'),
+        layout: 'layouts/zimbra'
     });
 };
 
 controller.makeLogin = function(req, res, next) {
-    passport.authenticate(['local', 'preauth'], { failureFlash: true }, function(err, user, info) {
+    passport.authenticate(['local', 'preauth'], { failureFlash: true, badRequestMessage: 'Introduce tu nombre de usuario y contraseña' }, function(err, user, info) {
         if(err) {
             return next(err);
         }

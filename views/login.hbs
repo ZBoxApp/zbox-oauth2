@@ -1,29 +1,50 @@
-<div class="container" id="login-block">
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div class="account-wall">
-                <i class="logo-img"></i>
-                <form class="form-signin" role="form" action="/login" method="post">
-                    {{#if message.length }}
-                        {{#each message}}
-                            <div class="has-error">{{this}}</div>
-                        {{/each}}
-                    {{/if}}
-                    <div class="append-icon">
-                        <input type="text" name="username" id="username" class="form-control form-white username" placeholder="Usuario" required>
-                        <i class="glyphicon glyphicon-user"></i>
-                    </div>
-                    <div class="append-icon m-b-20">
-                        <input type="password" name="password" id="password" class="form-control form-white password" placeholder="Clave" required>
-                        <i class="glyphicon glyphicon-lock"></i>
-                    </div>
-                    <button type="submit" id="submit-form" class="btn btn-lg btn-primary btn-block">Iniciar sesión</button>
-                </form>
-            </div>
+<div class="LoginScreen">
+    <div class="center">
+        <div class="contentBox">
+            <h1><a href="http://www.zboxapp.com/" id="bannerLink" target="_new" title='ZBox'><span class="ScreenReaderOnly">Zimbra</span>
+                <span class="ImgLoginBanner"></span>
+            </a></h1>
+
+            <form method="post" name="loginForm" action="/login" accept-charset="UTF-8">
+                {{#if message.length }}
+                    {{#each message}}
+                        <div id="ZLoginErrorPanel">
+                            <table><tbody><tr>
+                                <td><img src="/images/ImgCritical_32.png" title="Error" alt="Error" id="ZLoginErrorIcon"></td>
+                                <td>{{this}}</td>
+                            </tr></tbody></table>
+                        </div>
+                    {{/each}}
+                {{/if}}
+                <table class="form">
+                    <tr>
+                        <td><label for="username">Nombre de usuario:</label></td>
+                        <td><input id="username" class="zLoginField" name="username" type="text" value="" size="40" maxlength="1024" autocapitalize="off" autocorrect="off"/></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="password">Contraseña:</label></td>
+                        <td><input id="password" autocomplete="off" class="zLoginField" name="password" type="password" value="" size="40" maxlength="1024"/></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="submitTD">
+                            <input type="submit" id="submit-form" class="ZLoginButton DwtButton" value="Iniciar sesión" />
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+        <div class="decor1"></div>
+    </div>
+
+    <div class="Footer">
+        <div id="ZLoginNotice" class="legalNotice-small"><a target="_new" href="http://www.zboxapp.com">ZBox Mail</a> : Correo en la nube, seguro y facil de usar</div>
+        <div class="copyright">
+            Copyright © 2014-2015 ZBox Spa. Todos los derechos reservados
         </div>
     </div>
-    <p class="account-copyright">
-        <span><a href="http://www.zboxapp.com" target="_parent">ZBox Mail</a> : Correo en la nube, seguro y facil de usar</span><br />
-        <span>Copyright &copy; 2014-2015 </span><span>ZBox Spa</span>. <span>Todos los derechos reservados.</span>
-    </p>
+    <div class="decor2"></div>
 </div>
