@@ -9,6 +9,7 @@ var passport = require('passport'),
     ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
     ZimbraStrategy = require('passport-zimbra').Strategy,
+    TripleDesStrategy = require('passport-zimbra').TripleDesStrategy,
     zimbra = require('./zimbraPreauth'),
     config = require('./config'),
     db = require('../models');
@@ -101,15 +102,37 @@ passport.use(new ZimbraStrategy({
         var params = {
             email: email
         };
-        zimbra.post('/url', params, function(err, response, body) {
-            if(err) {
+        zimbra.post('/url', params, function (err, response, body) {
+            if (err) {
                 return done(err);
             }
-            if(response.statusCode !== 200) {
+            if (response.statusCode !== 200) {
                 return done(null, false, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
             }
-            return db.models.User.updateOrCreate(JSON.parse(body), function(err, user) {
-                if(err) return done(err);
+            return db.models.User.updateOrCreate(JSON.parse(body), function (err, user) {
+                if (err) return done(err);
+
+                return done(null, user);
+            });
+        });
+    }
+));
+
+passport.use(new TripleDesStrategy({
+        passphrase: config.get("zimbra:secretPassphrase")},
+    function(email, done) {
+        var params = {
+            email: email
+        };
+        zimbra.post('/url', params, function (err, response, body) {
+            if (err) {
+                return done(err);
+            }
+            if (response.statusCode !== 200) {
+                return done(null, false, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
+            }
+            return db.models.User.updateOrCreate(JSON.parse(body), function (err, user) {
+                if (err) return done(err);
 
                 return done(null, user);
             });

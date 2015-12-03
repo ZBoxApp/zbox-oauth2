@@ -7,13 +7,15 @@
     "codeLife": 300
   },
   "mongoose": {
-    "uri": "mongodb://192.168.99.100/zboxAuth",
+    "uri": "mongodb://db-chat-master.zboxapp.com/zboxAuth",
     "expires": 2592000
   },
   "zimbra" : {
-    "preauth_host": "http://192.168.99.100:9292"
+    "preauth_host": "http://192.168.99.100:9292",
+    "token": "https://mail.zboxapp.com/service/soap/AuthRequest",
+    "secretPassphrase": "0uBKXvMVTsy2mJkUuheC8jL1vRgJWNx850zBCgCOuJuQohVpaGhSz2OeQ6QBIfKCykyRbhDRxaRjmC8wruJWmf13oLVH4z6iAPiUQynR47wkSWyUJYoH40xmqSwZ8P7MvAMF6ryRgDIfq4yTzokDkTGbQdm7HBssgyzJJrMYktP5EvBrbqmPSCfTTZy7xlasNTM8Xxzv1g4B5NGx2e3GRUG7Ua3hfER2iF2cMfQAp1iFCIrgn3AyyTl13pq8b3To"
   },
   "chat": {
-    "url": "http://localhost:8065"
+    "url": "https://chat.zboxapp.com"
   }
 }

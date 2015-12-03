@@ -1,10 +1,9 @@
 {
   "name": "ZBoxAuth",
-  "version": "0.1.0",
-  "description": "Mecanismo de autenticación para ZBox",
+  "version": "0.2.0",
+  "description": "Servicio de autenticación para ZBox",
   "private": true,
   "scripts": {
-    "prestart": "bower --allow-root install && npm install && gulp",
     "start": "forever --minUptime 1000 --spinSleepTime 1000 ./bin/www"
   },
   "dependencies": {

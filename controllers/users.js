@@ -25,6 +25,12 @@ controller.me = function(req, res) {
         isZimbra: user.isZimbra
     };
 
+    req.logIn(user, function(err) {
+        if (err) {
+            return next(err);
+        }
+    });
+
     return res.json(u);
 };
 

@@ -6,7 +6,7 @@ var express = require('express'),
 /* GET users listing. */
 router.route("/me")
     .get(passport.authenticate('bearer', { session: false }), controller.me)
-    .post(passport.authenticate('zimbra', { session: false }), controller.me);
+    .post(passport.authenticate(['crypto', 'zimbra']), controller.me);
 
 router.get('/client', passport.authenticate('bearer', { session: false }), controller.client);
 

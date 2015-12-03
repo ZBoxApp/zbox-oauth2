@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y build-essential python curl nano git
 
 # Install NodeJS
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 4.2.1
+ENV NODE_VERSION 4.2.2
 ENV PORT 80
 ENV NODE_ENV production
 
@@ -30,12 +30,11 @@ RUN mkdir /app
 RUN cd /app
 
 WORKDIR /app
-VOLUME ["/app"]
 
 ADD . /app
 
-RUN rm -rf /app/node_modules/ /app/public/js/ /app/public/css/ /app/public/plugins/
-RUN npm install -g gulp forever bower browserify
+#RUN rm -rf /app/node_modules/ /app/public/js/ /app/public/css/ /app/public/plugins/
+RUN npm install -g forever
 
 ENTRYPOINT npm start
 
