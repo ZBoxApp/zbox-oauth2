@@ -19,7 +19,7 @@ INPUT[readonly]{color:#999;background-color:transparent;border:1px solid #e5e5e5
 TEXTAREA{padding:.2em .3em;cursor:text;color:black;background-color:white;border:1px solid #bfbfbf;resize:none;}
 TEXTAREA[readonly]{color:#999;background-color:transparent;border:1px solid #e5e5e5;}
 INPUT[type="checkbox"]{cursor:pointer;}
-INPUT[type="text"],INPUT[type="password"]{padding:0 3px;cursor:text;height:22px;height:2rem;color:black;background-color:white;border:1px solid #bfbfbf;}
+INPUT[type="text"],INPUT[type="password"]{padding:0 3px;cursor:text;height:2rem;color:black;background-color:white;border:1px solid #bfbfbf;}
 INPUT[disabled]{color:#999;background-color:transparent;border:1px solid #e5e5e5;}
 textarea{padding:.2em .3em;cursor:text;color:black;background-color:white;border:1px solid #bfbfbf;}
 .CompactTable{border-collapse:collapse;border-spacing:0;padding:0;}
@@ -718,7 +718,7 @@ SELECT{border:1px solid #bfbfbf;margin:0;border-width:1px;border-style:solid;}
 .SplashScreen .message{color:#6a6c6f;cursor:default;padding-top:40px;font-size:1.36rem;font-weight:bold;}
 .SplashScreen .switch A{color:#6a6c6f;text-decoration:underline;font-size:1rem;}
 .form{color:#6a6c6f;font-weight:bold;}
-.form INPUT[type='text'],.form INPUT[type='password']{display:block;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;}
+.form INPUT[type='text'],.form INPUT[type='password']{display:block;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;}
 .form .ZLoginButton{background-color:#34495e;border-color:#34495e;color:#FFF;font-size:14px;font-weight:normal;padding-top:10px;padding-left:10px;padding-right:10px;padding-bottom:25px;}
 .form .ZLoginButton:hover{background-color:#3f5872;}
 .form .ZLoginButton:active{background-color:#005d92;}
