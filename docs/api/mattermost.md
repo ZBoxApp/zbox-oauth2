@@ -1,5 +1,22 @@
 # Mattermost APIs
 
+#### Consultar si un equipo existe
+
+    URL: http://<url de mattermost>/api/v1/teams/find_team_by_name
+    METHOD: POST
+    HEADER: Content-Type: application/json
+    BODY: JSON
+
+El cuerpo del mensaje debe llevar
+
+```json
+{
+    "name": "ejemplo-com"
+}
+```
+
+La respuesta retorna un Boolean donde `true` es que el equipo existe y `false` es que el equipo no existe
+
 #### Crear un nuevo equipo
 
     URL: http://<url de mattermost>/api/v1/teams/create
