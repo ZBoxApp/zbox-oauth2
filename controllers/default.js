@@ -3,6 +3,7 @@
  */
 var passport = require('passport'),
     zimbra = require('../libs/zimbraPreauth'),
+    errorRequestHandler = require('./errorRequestHandler'),
     controller = {};
 
 controller.head = function(req, res){
@@ -44,18 +45,30 @@ controller.makeLogin = function(req, res, next) {
         if(err) {
             return next(err);
         }
-        if(!user) {
-            var msg = user === null ? info[0].message : info[1].message;
-            req.flash('error', msg);
-            return res.redirect('/login');
+        if (!user) {
+            if (!req.body.zbox) {
+                var msg = user === null ? info[0].message : info[1].message;
+                req.flash('error', msg);
+                return res.redirect('/login');
+            }
+            return errorRequestHandler(401, "Unauthorized", "Nombre de usuario y/o contraseña invalido", res);
         }
         req.logIn(user, function(err) {
             var url = req.session ? req.session.returnTo || req.user.zimbraUrl : req.user.zimbraUrl || '/';
 
-            if(err) {
-                return next(err);
+            if (err) {
+                if (!req.body.zbox) {
+                    return next(err);
+                }
+
+                return errorRequestHandler(500, "Internal Error", err.message, res);
             }
-            return res.redirect(url);
+
+            if (!req.body.zbox) {
+                return res.redirect(url);
+            }
+
+            return res.json(req.user);
         });
     })(req, res, next);
 };
