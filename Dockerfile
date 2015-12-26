@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y curl
 
 # Install NodeJS
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 4.2.2
+ENV NODE_VERSION 5.2.0
 ENV PORT 80
 ENV NODE_ENV production
 

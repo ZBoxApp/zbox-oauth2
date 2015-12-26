@@ -1,5 +1,8 @@
+.PHONY: clean build docker
+
 DIST_PATH=./dist
-DOCKERNAME ?= zbox-oauth2:latest
+DOCKERNAME ?= zbox-oauth2
+BUILD_NUMBER ?= dev
 
 clean:
 	@echo Cleaning up
@@ -7,6 +10,7 @@ clean:
 
 build: clean
 	@echo Building ZBoxOAuth Service
+	@gulp
 	@mkdir -p $(DIST_PATH)
 	@cp -RL ./bin $(DIST_PATH)/bin
 	@mkdir -p $(DIST_PATH)/config
@@ -30,5 +34,11 @@ build: clean
 
 docker: build
 	@echo Building Docker Image
-	@docker build -t enahum/${DOCKERNAME} -f Dockerfile .
+ifeq ($(BUILD_NUMBER), dev)
+	$(eval BUILD_NUMBER := $(shell read -p "Enter the version number:" version; echo $$version))
+endif
+
+	@echo BUILD_NUMBER IS ${DOCKERNAME}:${BUILD_NUMBER}
+	@docker build -t enahum/${DOCKERNAME}:$(BUILD_NUMBER) -f Dockerfile .
 	@rm -rf $(DIST_PATH)
+	@docker tag -f enahum/${DOCKERNAME}:$(BUILD_NUMBER) enahum/${DOCKERNAME}:latest
