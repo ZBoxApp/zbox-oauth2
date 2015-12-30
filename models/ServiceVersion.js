@@ -11,7 +11,7 @@ var schema = new mongoose.Schema({
     link: [
         {
             platform: { type: String, trim: true, required: true, enum: ['darwin-x64', 'win32-ia32', 'win32-x64'] },
-            url: { type: String, trim: true, unique: true, lowercase: true, require:true, match: /^(ftp|http|https):\/\/[^ "]+$/ }
+            url: { type: String, trim: true, unique: true, require:true, match: /^(ftp|http|https):\/\/[^ "]+$/ }
         }
     ]
 
