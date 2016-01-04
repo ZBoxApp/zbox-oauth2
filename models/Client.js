@@ -1,7 +1,8 @@
 /**
  * Created by enahum on 10/15/15.
  */
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    Client;
 
 var schema = new mongoose.Schema({
     name: { type: String, trim: true, unique: true, required: true },

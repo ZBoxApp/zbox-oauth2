@@ -1,6 +1,5 @@
 var express = require('express'),
     router = express.Router(),
-    passport = require('passport'),
     login = require('connect-ensure-login'),
     csrf = require('csurf'),
     bodyParser = require('body-parser'),

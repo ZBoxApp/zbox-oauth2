@@ -2,7 +2,10 @@
  * Created by enahum on 10/15/15.
  */
 var mongoose = require('mongoose'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    config = require('../libs/config'),
+    log = require('../libs/log')(module),
+    User;
 
 var schema = new mongoose.Schema({
     email: { type: String, trim: true, unique: true, required: true },
@@ -68,7 +71,7 @@ schema.statics.updateOrCreate = function(data, done) {
             return done(null, user);
         })
         .catch(function(err) {
-           return done(err, null);
+            return done(err, null);
         });
 };
 
@@ -85,7 +88,7 @@ schema.methods.forgotPassword = function (done) {
             done(null);
         }
         else {
-            log.info("Set forgot token for user - %s", user.email);
+            log.info('Set forgot token for user - %s', user.email);
             done(user.resetPasswordToken);
         }
     });
@@ -101,7 +104,7 @@ schema.methods.resetPassword = function (password, done) {
             done(false);
         }
         else {
-            log.info("Password reseted for user - %s", user.email);
+            log.info('Password reseted for user - %s', user.email);
             done(true);
         }
     });

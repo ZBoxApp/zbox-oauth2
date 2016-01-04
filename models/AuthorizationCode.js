@@ -2,14 +2,15 @@
  * Created by enahum on 10/15/15.
  */
 var mongoose = require('mongoose'),
-    config = require('../libs/config');
+    config = require('../libs/config'),
+    AuthorizationCode;
 
 var schema = new mongoose.Schema({
     code: { type: String, unique: true, required: true },
     redirectURI: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     client: { type: mongoose.Schema.Types.ObjectId, ref: 'Client' },
-    created: { type: Date, default: Date.now, index: { expires: parseInt(config.get("security:codeLife")) } }
+    created: { type: Date, default: Date.now, index: { expires: parseInt(config.get('security:codeLife')) } }
 });
 
 schema.statics.findByCode = function(code, done) {

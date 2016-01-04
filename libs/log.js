@@ -2,17 +2,17 @@
  * Created by enahum on 10/15/15.
  */
 var winston = require('winston'),
-    fs = require('fs'),
+    //fs = require('fs'),
     path = require('path');
 
 var colors = {
-        silly: 'magenta',
-        verbose: 'cyan',
-        info: 'green',
-        data: 'grey',
-        warn: 'yellow',
-        debug: 'blue',
-        error: 'red'
+    silly: 'magenta',
+    verbose: 'cyan',
+    info: 'green',
+    data: 'grey',
+    warn: 'yellow',
+    debug: 'blue',
+    error: 'red'
 };
 
 var filename = path.join(__dirname, '/../logs/', process.env.LOG_FILENAME || 'zboxauth');
@@ -27,11 +27,11 @@ function getLogger(module) {
     var path = module.filename.split('/').slice(-2).join('/'),
         level = process.env.LOG_LEVEL || 'info',
         transports = [
-        new winston.transports.Console({
-            colorize: true,
-            level: level,
-            label: path
-        })];
+            new winston.transports.Console({
+                colorize: true,
+                level: level,
+                label: path
+            })];
 
     if(process.env.LOG_TO_FILESYSTEM) {
         transports.push(new winston.transports.DailyRotateFile({

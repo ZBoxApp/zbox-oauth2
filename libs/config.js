@@ -7,7 +7,6 @@
  * @author Elias Nahum
  */
 var events = require('events'),
-    util = require('util'),
     log = require('./log')(module),
     nconf = require('nconf'),
     watch = require('node-watch'),

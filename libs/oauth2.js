@@ -73,7 +73,7 @@ server.grant(oauth2orize.grant.token(function(client, user, ares, done) {
         if (err) { return done(err); }
         done(null, accessToken.token, null, {
             expires_in: parseInt(moment.duration(moment(accessToken.created)
-                .add(parseInt(config.get("security:tokenLife")), 's').diff(moment())).asSeconds())
+                .add(parseInt(config.get('security:tokenLife')), 's').diff(moment())).asSeconds())
         });
     });
 }));
@@ -106,7 +106,7 @@ server.exchange(oauth2orize.exchange.code(function(client, code, redirectURI, do
                 done(null, accessToken.token, refresh.refreshToken,
                     {
                         expires_in: parseInt(moment.duration(moment(accessToken.created)
-                            .add(parseInt(config.get("security:tokenLife")), 's').diff(moment())).asSeconds())
+                            .add(parseInt(config.get('security:tokenLife')), 's').diff(moment())).asSeconds())
                     });
             });
         });
@@ -149,7 +149,7 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
                     done(null, accessToken.token, refresh.refreshToken,
                         {
                             expires_in: parseInt(moment.duration(moment(accessToken.created)
-                                .add(parseInt(config.get("security:tokenLife")), 's').diff(moment())).asSeconds())
+                                .add(parseInt(config.get('security:tokenLife')), 's').diff(moment())).asSeconds())
                         });
                 });
             });
@@ -167,7 +167,7 @@ server.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken
             return done(null, accessToken.token, refreshToken,
                 {
                     expires_in: parseInt(moment.duration(moment(accessToken.created)
-                        .add(parseInt(config.get("security:tokenLife")), 's').diff(moment())).asSeconds())
+                        .add(parseInt(config.get('security:tokenLife')), 's').diff(moment())).asSeconds())
                 });
         });
     };
@@ -217,7 +217,7 @@ server.exchange(oauth2orize.exchange.clientCredentials(function(client, scope, d
             if (err) { return done(err); }
             done(null, accessToken.token, null, {
                 expires_in: parseInt(moment.duration(moment(accessToken.created)
-                    .add(parseInt(config.get("security:tokenLife")), 's').diff(moment())).asSeconds())
+                    .add(parseInt(config.get('security:tokenLife')), 's').diff(moment())).asSeconds())
             });
         });
     });

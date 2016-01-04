@@ -14,7 +14,7 @@ var cl = new db.models.Client({
 });
 
 cl.save(function(err, client) {
-    console.log(client);
+    console.log(client); // eslint-disable-line no-console
 });
 
 var chat = new db.models.ServiceVersion({
@@ -25,7 +25,7 @@ var chat = new db.models.ServiceVersion({
 });
 
 chat.save(function(err, service) {
-   console.log(service);
+    console.log(service); // eslint-disable-line no-console
 });
 
 setTimeout(function () {

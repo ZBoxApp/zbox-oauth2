@@ -16,7 +16,7 @@ var express = require('express'),
     routes = require('./routes'),
     oauth = require('./routes/oauth'),
     users = require('./routes/users'),
-    version = require('./routes/version');
+    version = require('./routes/version'),
     app = express();
 
 var setSecurity = function() {
@@ -45,7 +45,7 @@ app.use(cookieParser('ZBoxAuthS3cr3t'));
 app.use(session({
     store: new SessionStore({
         collection: 'sessions',
-        expire: config.get("mongoose:expires"),
+        expire: config.get('mongoose:expires'),
         instance: db.mongoose
     }),
     name: 'zboxAuth',
@@ -89,13 +89,13 @@ var errorHandler = function(err, res, show) {
 };
 
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function(err, req, res) {
         errorHandler(err, res, true);
     });
 } else {
     // production error handler
     // no stacktraces leaked to user
-    app.use(function (err, req, res, next) {
+    app.use(function (err, req, res) {
         errorHandler(err, res, false);
     });
 }

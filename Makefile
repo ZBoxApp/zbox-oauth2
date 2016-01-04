@@ -1,5 +1,6 @@
 .PHONY: clean build docker
 
+ESLINT=node_modules/.bin/eslint
 DIST_PATH=./dist
 DOCKERNAME ?= zbox-oauth2
 BUILD_NUMBER ?= dev
@@ -8,7 +9,11 @@ clean:
 	@echo Cleaning up
 	@rm -Rf $(DIST_PATH)
 
-build: clean
+lint:
+	@echo Running ESLint
+	@$(ESLINT) --ext ".js" .
+
+build: clean lint
 	@echo Building ZBoxOAuth Service
 	@gulp
 	@mkdir -p $(DIST_PATH)

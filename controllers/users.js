@@ -10,7 +10,7 @@ controller.client = function(req, res) {
     return res.json({ client_id: req.user.id, name: req.user.name, scope: req.authInfo.scope });
 };
 
-controller.me = function(req, res) {
+controller.me = function(req, res, next) {
     var user = req.user;
 
     var u = {
@@ -40,7 +40,7 @@ controller.findById = function(req, res) {
         if(err) {
             return db.errorHandler(err, res);
         } else if(!user) {
-            return errorRequestHandler(404, "Not Found", "The user you looking for doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The user you looking for doesn\'t exists.', res);
         }
 
 
@@ -57,7 +57,7 @@ controller.findById = function(req, res) {
         };
 
         return res.json(u);
-    })
+    });
 };
 
 controller.findByTeam = function(req, res) {
@@ -75,15 +75,15 @@ controller.create = function(req, res) {
 
 
     if(!json.email) {
-        return errorRequestHandler(400, "Bad Request", 'Setting the user email is mandatory', res);
+        return errorRequestHandler(400, 'Bad Request', 'Setting the user email is mandatory', res);
     } else if(!json.password) {
-        return errorRequestHandler(400, "Bad Request", 'Setting the user password is mandatory', res);
+        return errorRequestHandler(400, 'Bad Request', 'Setting the user password is mandatory', res);
     } else if(!json.team) {
-        return errorRequestHandler(400, "Bad Request", 'Setting the user team is mandatory', res);
+        return errorRequestHandler(400, 'Bad Request', 'Setting the user team is mandatory', res);
     }
 
     json.isZimbra = false;
-    json.zimbraUrl = config.get("chat:url");
+    json.zimbraUrl = config.get('chat:url');
 
     var create = new db.models.User(json);
     create.save(function(err, user) {
@@ -114,11 +114,11 @@ controller.update = function(req, res) {
         if(err) {
             return db.errorHandler(err, res);
         } else if(!user) {
-            return errorRequestHandler(404, "Not Found", "The user you looking for doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The user you looking for doesn\'t exists.', res);
         }
 
         if(user.isZimbra) {
-            return errorRequestHandler(400, "Bad Request", 'Zimbra users should be updated using the Zimbra account', res);
+            return errorRequestHandler(400, 'Bad Request', 'Zimbra users should be updated using the Zimbra account', res);
         }
 
         if(json.password) {
@@ -132,7 +132,7 @@ controller.update = function(req, res) {
         user.chatEnabled = json.chatEnabled || user.chatEnabled;
         user.role = json.role || user.role;
 
-        user.save(function(err, u) {
+        user.save(function(err) {
             if(err) {
                 return db.errorHandler(err, res);
             }
@@ -148,7 +148,7 @@ controller.remove = function(req, res) {
         if (err) {
             return db.errorHandler(err, res);
         } else if (!user) {
-            return errorRequestHandler(404, "Not Found", "The user you're trying to remove doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The user you\'re trying to remove doesn\'t exists.', res);
         }
 
         user.remove(function(err) {

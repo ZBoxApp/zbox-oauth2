@@ -7,7 +7,7 @@ var request = require('request'),
 module.exports = {
     post: function(action, params, done) {
         request.post({
-            url: (process.env.ZIMBRA_PREAUTH_HOST || config.get("zimbra:preauth_host")) + action,
+            url: (process.env.ZIMBRA_PREAUTH_HOST || config.get('zimbra:preauth_host')) + action,
             form: params
         }, function(err, response, body) {
             if(typeof done === 'function') {

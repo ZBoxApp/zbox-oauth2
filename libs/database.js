@@ -17,31 +17,31 @@ var db = mongoose.connection;
 var connected = false;
 var error = null;
 
-mongoose.connection.db.on('reconnect', function (ref) {
+mongoose.connection.db.on('reconnect', function () {
     connected = true;
     error = null;
     log.info('reconnect to mongo server.');
 });
 
-db.on('open', function (ref) {
+db.on('open', function () {
     connected = true;
     error = null;
     log.info('open connection to mongo server.');
 });
 
-db.on('connected', function (ref) {
+db.on('connected', function () {
     connected = true;
     error = null;
     log.info('connected to mongo server.');
 });
 
-db.on('disconnected', function (ref) {
+db.on('disconnected', function () {
     connected = false;
     error = null;
     log.info('disconnected from mongo server.');
 });
 
-db.on('close', function (ref) {
+db.on('close', function () {
     connected = false;
     error = null;
     log.info('close connection to mongo server');
@@ -84,7 +84,7 @@ var mongodb = {
     errorHandler: function (err, res) {
         var message = err.message;
         if (err.errors) {
-            var keys = Object.keys(err.errors);
+            var keys = Object.keys(err.errors), i;
             if (keys.length == 1)
                 message = err.errors[keys[0]].message;
             else {

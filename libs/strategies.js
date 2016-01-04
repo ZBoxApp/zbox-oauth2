@@ -44,18 +44,16 @@ passport.use('preauth', new LocalStrategy(
                 return done(err);
             }
             switch(response.statusCode) {
-                case 200:
-                    return db.models.User.updateOrCreate(JSON.parse(body), function(err, user) {
-                        if(user.isEnabled) {
-                            return done(null, user);
-                        } else {
-                            return done(null, null, {message: 'El usuario ha sido inhabilitado'});
-                        }
-                    });
-                    break;
-                case 401:
-                    return done(null, null, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
-                    break;
+            case 200:
+                return db.models.User.updateOrCreate(JSON.parse(body), function(err, user) {
+                    if(user.isEnabled) {
+                        return done(null, user);
+                    } else {
+                        return done(null, null, {message: 'El usuario ha sido inhabilitado'});
+                    }
+                });
+            case 401:
+                return done(null, null, {message: 'Nombre de usuario y/o contraseña incorrecta.'});
             }
         });
     }
@@ -65,7 +63,7 @@ passport.use('local', new LocalStrategy(
     function(username, password, done) {
         var er = { status: 401, code: 'Autorizacion', message: 'Nombre de usuario y/o contraseña incorrecta.' };
         // check in mongo if a user with username exists or not
-        User.findOne({ 'email' :  username })
+        db.models.User.findOne({ 'email' :  username })
             .exec(function(err, user) {
                 // In case of any error, return using the done method
                 if (err) {
@@ -97,7 +95,7 @@ passport.use('local', new LocalStrategy(
     }));
 
 passport.use(new ZimbraStrategy({
-    url: process.env.ZIMBRA_TOKEN_URL || config.get("zimbra:token")},
+    url: process.env.ZIMBRA_TOKEN_URL || config.get('zimbra:token')},
     function(email, done) {
         var params = {
             email: email
@@ -119,7 +117,7 @@ passport.use(new ZimbraStrategy({
 ));
 
 passport.use(new TripleDesStrategy({
-        passphrase: config.get("zimbra:secretPassphrase")},
+    passphrase: config.get('zimbra:secretPassphrase')},
     function(email, done) {
         var params = {
             email: email

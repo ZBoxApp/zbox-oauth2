@@ -3,7 +3,8 @@
  */
 var mongoose = require('mongoose'),
     Q = require('q'),
-    config = require('../libs/config');
+    config = require('../libs/config'),
+    AccessToken;
 
 mongoose.Promise = Q.Promise;
 
@@ -11,7 +12,7 @@ var schema = new mongoose.Schema({
     token: { type: String, unique: true, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     client: { type: mongoose.Schema.Types.ObjectId, ref: 'Client' },
-    created: { type: Date, default: Date.now,  index: { expires: parseInt(config.get("security:tokenLife")) } }
+    created: { type: Date, default: Date.now,  index: { expires: parseInt(config.get('security:tokenLife')) } }
 });
 
 schema.statics.findByToken = function(token, done) {

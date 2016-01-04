@@ -37,7 +37,7 @@ module.exports = {
             // Check if grant request qualifies for immediate approval
             db.models.AccessToken.hasToken(user._id, client._id)
                 .then(function(token) {
-                    if(!!token) {
+                    if(token) {
                         return done(null, true);
                     }
                     if(client.isTrusted) {
@@ -49,7 +49,7 @@ module.exports = {
                     return done(err);
                 });
         }),
-        function(req, res, next){
+        function(req, res){
             res.render('dialog', {
                 title: 'Autenticación ZBox',
                 page: 'dialog',

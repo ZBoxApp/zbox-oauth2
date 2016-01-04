@@ -23,7 +23,7 @@ controller.get = function(req, res) {
         if(err) {
             return db.errorHandler(err, res);
         } else if(!version) {
-            return errorRequestHandler(404, "Not Found", "The service you're trying to check doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The service you\'re trying to check doesn\'t exists.', res);
         }
 
         if(compare(number, version.current) === -1) {
@@ -39,7 +39,7 @@ controller.get = function(req, res) {
             }
         }
 
-        return errorRequestHandler(204, "No Content", "There isn't an update available for your platform", res);
+        return errorRequestHandler(204, 'No Content', 'There isn\'t an update available for your platform', res);
     });
 };
 
@@ -61,7 +61,7 @@ controller.findOne = function(req, res) {
         if(err) {
             return db.errorHandler(err, res);
         } else if(!version) {
-            return errorRequestHandler(404, "Not Found", "The service you're trying to check doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The service you\'re trying to check doesn\'t exists.', res);
         }
 
         return res.status(200).json(version);
@@ -77,7 +77,7 @@ controller.releases = function(req, res) {
         if(err) {
             return db.errorHandler(err, res);
         } else if(!version) {
-            return errorRequestHandler(404, "Not Found", "The service you're trying to check doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The service you\'re trying to check doesn\'t exists.', res);
         }
 
         url = version.findPlatformUrl(platform);
@@ -85,7 +85,7 @@ controller.releases = function(req, res) {
             return res.redirect(url + 'RELEASES');
         }
 
-        return errorRequestHandler(204, "No Content", "There isn't an update available for your platform", res);
+        return errorRequestHandler(204, 'No Content', 'There isn\'t an update available for your platform', res);
     });
 };
 
@@ -95,10 +95,10 @@ controller.create = function(req, res) {
         if (err) {
             return db.errorHandler(err, res);
         } else if (service) {
-            return errorRequestHandler(409, "Conflict", "The service you're trying to create already exists.", res);
+            return errorRequestHandler(409, 'Conflict', 'The service you\'re trying to create already exists.', res);
         }
 
-        new ServiceVersion({
+        new db.models.ServiceVersion({
             name: app.name,
             current: app.current,
             notes: app.notes,
@@ -121,7 +121,7 @@ controller.update = function(req, res){
         if(err) {
             return db.errorHandler(err, res);
         } else if(!service) {
-            return errorRequestHandler(404, "Not Found", "The service you're trying to update doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The service you\'re trying to update doesn\'t exists.', res);
         }
 
         service.current = app.current || service.current;
@@ -144,7 +144,7 @@ controller.remove = function(req, res) {
         if (err) {
             return db.errorHandler(err, res);
         } else if (!service) {
-            return errorRequestHandler(404, "Not Found", "The service you're trying to remove doesn't exists.", res);
+            return errorRequestHandler(404, 'Not Found', 'The service you\'re trying to remove doesn\'t exists.', res);
         }
 
         service.remove(function(err) {
@@ -168,7 +168,7 @@ controller.download = function(req, res) {
         filename = path.join(__dirname, '../releases', file);
         fs.access(filename, fs.R_OK, function(err) {
             if(err) {
-                return errorRequestHandler(404, "Not Found", "The file you're trying to download doesn't exists.", res);
+                return errorRequestHandler(404, 'Not Found', 'The file you\'re trying to download doesn\'t exists.', res);
             }
 
             return res.download(filename, file);
@@ -178,7 +178,7 @@ controller.download = function(req, res) {
             if(err) {
                 return db.errorHandler(err, res);
             } else if(!version) {
-                return errorRequestHandler(404, "Not Found", "The service you're trying to check doesn't exists.", res);
+                return errorRequestHandler(404, 'Not Found', 'The service you\'re trying to check doesn\'t exists.', res);
             }
 
             url = version.findPlatformUrl(platform);
@@ -186,7 +186,7 @@ controller.download = function(req, res) {
                 return res.redirect(url + file);
             }
 
-            return errorRequestHandler(204, "No Content", "There isn't an update available for your platform", res);
+            return errorRequestHandler(204, 'No Content', 'There isn\'t an update available for your platform', res);
         });
     }
 };

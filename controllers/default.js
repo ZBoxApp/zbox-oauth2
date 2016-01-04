@@ -31,7 +31,7 @@ controller.index = function(req, res, next) {
     }
 };
 
-controller.login = function(req, res, next) {
+controller.login = function(req, res) {
     return res.render('login', {
         title: 'Autenticación ZBox',
         page: 'login',
@@ -52,7 +52,7 @@ controller.makeLogin = function(req, res, next) {
                 req.flash('error', msg);
                 return res.redirect('/login');
             }
-            return errorRequestHandler(401, "Unauthorized", "Nombre de usuario y/o contraseña invalido", res);
+            return errorRequestHandler(401, 'Unauthorized', 'Nombre de usuario y/o contraseña invalido', res);
         }
         req.logIn(user, function(err) {
             var url = req.session ? req.session.returnTo || req.user.zimbraUrl : req.user.zimbraUrl || '/';
@@ -62,7 +62,7 @@ controller.makeLogin = function(req, res, next) {
                     return next(err);
                 }
 
-                return errorRequestHandler(500, "Internal Error", err.message, res);
+                return errorRequestHandler(500, 'Internal Error', err.message, res);
             }
 
             if (!req.body.zbox) {

@@ -1,7 +1,8 @@
 /**
  * Created by enahum on 11/12/15.
  */
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ServiceVersion;
 
 var schema = new mongoose.Schema({
     name: { type: String, trim: true, unique: true, required: true },

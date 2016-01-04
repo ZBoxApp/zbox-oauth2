@@ -2,8 +2,7 @@
  * Created by enahum on 10/15/15.
  */
 var mongoose = require('mongoose'),
-    Q = require('q'),
-    config = require('../libs/config');
+    RefreshToken;
 
 var schema = new mongoose.Schema({
     refreshToken: { type: String, unique: true, required: true },

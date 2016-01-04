@@ -69,7 +69,7 @@ var MongoStore = {
         });
     },
     clear: function (cb) {
-        MongoStore.client.drop(function () {
+        MongoStore.client.drop(function (err) {
             if (err) {
                 return cb && cb(err);
             }
@@ -79,7 +79,7 @@ var MongoStore = {
     }
 };
 
-var SessionStore = function (options, cb) {
+var SessionStore = function (opts, cb) {
     var options = {
         host: options.host || 'localhost',
         port: options.port || 27017,
