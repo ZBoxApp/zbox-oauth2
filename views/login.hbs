@@ -6,6 +6,7 @@
             </a></h1>
 
             <form method="post" name="loginForm" action="/login" accept-charset="UTF-8">
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 {{#if message.length }}
                     {{#each message}}
                         <div id="ZLoginErrorPanel">

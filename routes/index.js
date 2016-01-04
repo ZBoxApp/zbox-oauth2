@@ -2,7 +2,11 @@ var express = require('express'),
     router = express.Router(),
     passport = require('passport'),
     login = require('connect-ensure-login'),
-    controller = require('../controllers/default');
+    csrf = require('csurf'),
+    bodyParser = require('body-parser'),
+    controller = require('../controllers/default'),
+    csrfProtection = csrf({ cookie: true }),
+    parseForm = bodyParser.urlencoded({ extended: false });
 
 
 /* GET home page. */
@@ -11,8 +15,8 @@ router.route('/')
     .get(login.ensureLoggedIn(), controller.index);
 
 router.route('/login')
-    .get(controller.login)
-    .post(controller.makeLogin);
+    .get(csrfProtection, controller.login)
+    .post(parseForm, csrfProtection, controller.makeLogin);
 
 router.get('/logout', controller.logout);
 

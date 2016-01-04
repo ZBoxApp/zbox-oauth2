@@ -35,6 +35,7 @@ controller.login = function(req, res, next) {
     return res.render('login', {
         title: 'Autenticación ZBox',
         page: 'login',
+        csrfToken: req.csrfToken(),
         message: req.flash('error'),
         layout: 'layouts/zimbra'
     });
