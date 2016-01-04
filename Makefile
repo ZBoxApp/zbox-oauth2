@@ -1,4 +1,4 @@
-.PHONY: clean build docker
+.PHONY: clean build docker configure
 
 ESLINT=node_modules/.bin/eslint
 DIST_PATH=./dist
@@ -9,13 +9,22 @@ clean:
 	@echo Cleaning up
 	@rm -Rf $(DIST_PATH)
 
-lint:
+configure: clean
+	@echo Installing NPM dependencies
+	@npm install
+
+	@echo Installing Bower dependencies
+	@bower install
+
 	@echo Running ESLint
 	@$(ESLINT) --ext ".js" .
 
-build: clean lint
-	@echo Building ZBoxOAuth Service
+	@echo Preparing bundles
 	@gulp
+
+
+build: clean configure
+	@echo Building ZBoxOAuth Service
 	@mkdir -p $(DIST_PATH)
 	@cp -RL ./bin $(DIST_PATH)/bin
 	@mkdir -p $(DIST_PATH)/config
@@ -34,7 +43,7 @@ build: clean lint
 	@cp ./se*.js $(DIST_PATH)
 	@cp package.json $(DIST_PATH)
 
-	@echo Installind dependancies
+	@echo Installing dependancies
 	@cd $(DIST_PATH) && npm install --production
 
 docker: build
