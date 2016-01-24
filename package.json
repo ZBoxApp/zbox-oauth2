@@ -1,6 +1,6 @@
 {
   "name": "ZBoxAuth",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Servicio de autenticación para ZBox",
   "private": true,
   "scripts": {

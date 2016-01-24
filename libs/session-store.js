@@ -81,13 +81,13 @@ var MongoStore = {
 
 var SessionStore = function (opts, cb) {
     var options = {
-        host: options.host || 'localhost',
-        port: options.port || 27017,
-        db: options.db || 'test',
-        connectionString: options.connectionString || null,
-        collection: options.collection || 'sessions',
-        instance: options.instance || null,
-        expire: options.expire || 86400
+        host: opts.host || 'localhost',
+        port: opts.port || 27017,
+        db: opts.db || 'test',
+        connectionString: opts.connectionString || null,
+        collection: opts.collection || 'sessions',
+        instance: opts.instance || null,
+        expire: opts.expire || 86400
     };
 
     session.Store.call(this, options);

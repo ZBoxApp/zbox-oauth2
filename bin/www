@@ -29,7 +29,7 @@ httpServer.on('listening', onListening);
  */
 
 if(config.get('enableSSL')) {
-    app.set('port', httpsPort);
+    server.set('port', httpsPort);
     sslKey = fs.readFileSync('certs/commercial.key');
     sslCert = fs.readFileSync('certs/cert.pem');
     sslCa = fs.readFileSync('certs/ca-bundle.crt');
