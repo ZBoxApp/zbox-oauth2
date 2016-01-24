@@ -17,7 +17,7 @@ configure: clean
 	@bower install
 
 	@echo Running ESLint
-	@$(ESLINT) --ext ".js" .
+	@$(ESLINT) --ext=".js" --ignore_pattern=node_modules --quiet .
 
 	@echo Preparing bundles
 	@gulp
@@ -47,12 +47,19 @@ build: clean configure
 	@cd $(DIST_PATH) && npm install --production
 
 docker: build
-	@echo Building Docker Image
+	@echo Building Docker Image fro Production
 ifeq ($(BUILD_NUMBER), dev)
 	$(eval BUILD_NUMBER := $(shell read -p "Enter the version number:" version; echo $$version))
 endif
 
 	@echo BUILD_NUMBER IS ${DOCKERNAME}:${BUILD_NUMBER}
-	@docker build -t enahum/${DOCKERNAME}:$(BUILD_NUMBER) -f Dockerfile .
+	@docker build -t enahum/${DOCKERNAME}:$(BUILD_NUMBER) -f docker/prod/Dockerfile .
 	@rm -rf $(DIST_PATH)
 	@docker tag -f enahum/${DOCKERNAME}:$(BUILD_NUMBER) enahum/${DOCKERNAME}:latest
+
+docker-dev: build
+	@echo Building Docker Image for Dev
+
+	@echo BUILD_NUMBER IS ${DOCKERNAME}:dev
+	@docker build -t enahum/${DOCKERNAME}:dev -f docker/test/Dockerfile .
+	@rm -rf $(DIST_PATH)
