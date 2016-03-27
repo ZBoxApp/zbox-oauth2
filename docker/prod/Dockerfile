@@ -12,11 +12,11 @@ RUN apt-get update && apt-get install -y curl
 
 # Install NodeJS
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 5.2.0
+ENV NODE_VERSION 5.9.1
 ENV PORT 80
 ENV NODE_ENV production
 
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash \
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash \
     && source $NVM_DIR/nvm.sh \
     && nvm install $NODE_VERSION \
     && nvm alias default $NODE_VERSION \
